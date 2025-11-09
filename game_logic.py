@@ -1,34 +1,6 @@
 import random
+from ascii_art import STAGES
 
-# Snowman ASCII Art stages
-STAGES = [
-     # Stage 0: Full snowman
-     """
-      ___  
-     /___\\ 
-     (o o) 
-     ( : ) 
-     ( : ) 
-     """,
-     # Stage 1: Bottom part starts melting
-     """
-      ___  
-     /___\\ 
-     (o o) 
-     ( : ) 
-     """,
-     # Stage 2: Only the head remains
-     """
-      ___  
-     /___\\ 
-     (o o) 
-     """,
-     # Stage 3: Snowman completely melted
-     """
-      ___  
-     /___\\ 
-     """
- ]
 
 # List of secret words
 WORDS = ["python", "git", "github", "snowman", "meltdown"]
@@ -51,16 +23,27 @@ def play_game():
     # For now, simply prompt the user once:
 
 
-    while mistake < len(STAGES) - 1:
+    while True:
 
         guess = input("Guess a letter: ").lower()
         print("You guessed:", guess)
 
-        display_game_state(mistake, secret_word, guessed_letters)
-        guessed_letters.append(guess)
 
+        guessed_letters.append(guess)
         if guess not in secret_word:
             mistake+=1
+        display_game_state(mistake, secret_word, guessed_letters)
+
+        if mistake >= len(STAGES)-1:
+            print(f"Game Over! The word was: {secret_word}")
+            break
+
+        elif all(letter in guessed_letters for letter in secret_word):
+            print("Congratulations, you saved the snowman!")
+            break
+
+
+
 
 
 def display_game_state(mistakes, secret_word, guessed_letters):
@@ -72,7 +55,7 @@ def display_game_state(mistakes, secret_word, guessed_letters):
     display_word = ""
     for letter in secret_word:
         if letter in guessed_letters:
-            display_word += letter + "_"
+            display_word += letter + " "
         else:
             display_word += "_"
     print("Word:", display_word.strip())
