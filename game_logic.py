@@ -7,14 +7,11 @@ WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
 
 def get_random_word():
-
-
     """Selects a random word from the list."""
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
 
 def play_game():
-
 
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
@@ -26,8 +23,15 @@ def play_game():
 
     while True:
 
-        guess = input("Guess a letter: ").lower()
-        print("You guessed:", guess)
+        while True:
+            guess = input("Guess a letter: ").lower().strip()
+
+            if len(guess) != 1 or not guess.isalpha():
+                print("Please enter single letter (a-z)")
+                continue
+
+            print("You guessed:", guess)
+            break
 
         guessed_letters.append(guess)
         if guess not in secret_word:
@@ -42,9 +46,10 @@ def play_game():
             print("Congratulations, you saved the snowman!")
             break
 
+    ask_play_again()
+
 
 def display_game_state(mistakes, secret_word, guessed_letters):
-
 
     stage_index = min(mistakes, len(STAGES) - 1)
     print(STAGES[stage_index])
@@ -56,6 +61,15 @@ def display_game_state(mistakes, secret_word, guessed_letters):
         else:
             display_word += "_"
     print("Word:", display_word.strip())
+
+
+def ask_play_again():
+
+    game_cont = input("Do you want to play again? (y/n)").lower()
+    if game_cont == "y":
+        play_game()
+    else:
+        print("Goodbye!")
 
 
 if __name__ == "__main__":
