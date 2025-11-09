@@ -15,7 +15,7 @@ def play_game():
 
     secret_word = get_random_word()
     print("Welcome to Snowman Meltdown!")
-    print("Secret word selected: " + secret_word)  # for testing, later remove this line
+
 
     mistake = 0
     guessed_letters = []
