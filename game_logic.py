@@ -7,6 +7,8 @@ WORDS = ["python", "git", "github", "snowman", "meltdown"]
 
 
 def get_random_word():
+
+
     """Selects a random word from the list."""
     return WORDS[random.randint(0, len(WORDS) - 1)]
 
@@ -22,19 +24,17 @@ def play_game():
     guessed_letters = []
     # For now, simply prompt the user once:
 
-
     while True:
 
         guess = input("Guess a letter: ").lower()
         print("You guessed:", guess)
 
-
         guessed_letters.append(guess)
         if guess not in secret_word:
-            mistake+=1
+            mistake += 1
         display_game_state(mistake, secret_word, guessed_letters)
 
-        if mistake >= len(STAGES)-1:
+        if mistake >= len(STAGES) - 1:
             print(f"Game Over! The word was: {secret_word}")
             break
 
@@ -43,13 +43,10 @@ def play_game():
             break
 
 
-
-
-
 def display_game_state(mistakes, secret_word, guessed_letters):
 
 
-    stage_index = min(mistakes, len(STAGES)-1)
+    stage_index = min(mistakes, len(STAGES) - 1)
     print(STAGES[stage_index])
 
     display_word = ""
